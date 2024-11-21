@@ -24,6 +24,8 @@ public class Official_Main_Drive_CC extends LinearOpMode {
     private DcMotor FrontRight;
     private DcMotor RearRight;
     private DcMotor RearLeft;
+    private DcMotor RightClimb;
+    private DcMotor LeftClimb;
     private CRServo InTake;
 //    private DcMotor Arm;
 //    private Servo Claw;
@@ -70,21 +72,38 @@ public class Official_Main_Drive_CC extends LinearOpMode {
         FrontLeft = hardwareMap.dcMotor.get("LeftFront");
         RearRight = hardwareMap.dcMotor.get("RearRight");
         RearLeft = hardwareMap.dcMotor.get("RearLeft");
+        RightClimb = hardwareMap.dcMotor.get("RightHang");
+        LeftClimb = hardwareMap.dcMotor.get("LeftHang");
         InTake = hardwareMap.get(CRServo.class, "InTake");
         ArmExtender.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmExtender.setTargetPosition(0);
         ArmExtender.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        RightClimb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RightClimb.setTargetPosition(0);
+        RightClimb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        LeftClimb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LeftClimb.setTargetPosition(0);
+        LeftClimb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         RearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         ArmExtender.setDirection(DcMotor.Direction.REVERSE);
+        LeftClimb.setDirection(DcMotorSimple.Direction.REVERSE);
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RightClimb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LeftClimb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BNO055IMU.Parameters imuParameters;
         Orientation angles;
         Acceleration gravity;
@@ -109,7 +128,8 @@ public class Official_Main_Drive_CC extends LinearOpMode {
 
         waitForStart();
         if (opModeIsActive()) {
-            arm.setPower(1);
+            RightClimb.setPower(1);
+            LeftClimb.setPower(1);
             ArmExtender.setPower(0.8);
             while (opModeIsActive()) {
                 controller.setPID(p,i,d);
@@ -237,6 +257,16 @@ public class Official_Main_Drive_CC extends LinearOpMode {
                 }
                 if (gamepad1.right_bumper){
                     InTake.setPower(1); }
+
+                if (gamepad1.right_stick_button){
+                    RightClimb.setTargetPosition(-2200);
+                    LeftClimb.setTargetPosition(-2200);
+                }
+                else {
+
+                    RightClimb.setTargetPosition(0);
+                    LeftClimb.setTargetPosition(0);
+                }
 
                 telemetry.addData("Robot Angle", Robot_Angle);
                 telemetry.addData("ArmExtender", ArmExtender.getTargetPosition());
