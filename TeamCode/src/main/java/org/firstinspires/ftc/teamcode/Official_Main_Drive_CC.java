@@ -236,6 +236,7 @@ public class Official_Main_Drive_CC extends LinearOpMode {
                 RearLeft.setPower(LR * LTrigger);
                 RearRight.setPower(RR * LTrigger);
                 if (gamepad2.dpad_down) {
+                    ArmExtender.setTargetPosition(340);
                     target = 0;
                     InTake.setPower(-1);
                 } else if (gamepad2.dpad_right) {
@@ -244,11 +245,19 @@ public class Official_Main_Drive_CC extends LinearOpMode {
                 } else if (gamepad2.left_bumper) {
                     ArmExtender.setTargetPosition(1799);
                 } else if (gamepad2.dpad_up) {
-                    target = 800;
+                    target = 650;
                     ArmExtender.setTargetPosition(1900);
+                    if(ArmExtender.getCurrentPosition()>1700){
+                        target = 880;
+                    }
                 } else if (gamepad2.dpad_left) {
                     target = 1000;
-                } else {
+                } else if (gamepad2.a) {target = 210;
+                    ArmExtender.setTargetPosition(1800);
+                    InTake.setPower(-1);
+
+
+            } else {
                     ArmExtender.setTargetPosition(0);
                     if (ArmExtender.getCurrentPosition()<300){
                     target = 210;}

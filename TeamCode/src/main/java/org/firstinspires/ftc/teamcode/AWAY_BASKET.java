@@ -14,9 +14,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "RED_NEAR_BASKET_TWO", group = "")
+@Autonomous(name = "RED_AWAY_BASKET", group = "")
 //@Disabled
-public class RED_NEAR_BASKET_TWO extends LinearOpMode {
+public class AWAY_BASKET extends LinearOpMode {
 
   BNO055IMU imu;
 
@@ -113,58 +113,9 @@ public class RED_NEAR_BASKET_TWO extends LinearOpMode {
       Speed = 0.35;
 
       //Drive(27.5,Speed);
-        Drive(7,Speed);
-        Turn(-90,1);
-        arm.setTargetPosition(650);
-        Drive(6,Speed);
-        ArmExtender.setTargetPosition(1900);
-        Drive(6,Speed);
-        arm.setTargetPosition(800);
-        sleep(1000);
-        Turn(-135,1);
-        Drive(6,Speed);
-        InTake.setPower(1);
-        sleep(2000);
-        arm.setTargetPosition(890);
-        sleep(1000);
-        InTake.setPower(0);
-        Drive(-6,Speed);
-        //Drive(-16,Speed);
-        //Turn(0,1);
-        InTake.setPower(0);
-        ////////////////////////////////////
-        arm.setPower(0.2); //new
-        arm.setTargetPosition(650);
-        ArmExtender.setTargetPosition(0);
-        arm.setTargetPosition(450);
-        sleep(1500);
-        Drive(-11,Speed);
-        Turn(-45,1);
-        arm.setTargetPosition(0);
-        sleep(1000);
-        InTake.setPower(-1);
-        ArmExtender.setTargetPosition(740);
-        sleep(1500);
-        Drive(6,Speed);
-        InTake.setPower(0);
-        ArmExtender.setTargetPosition(0);
-        /////////////////////////////////////////////
-        Drive(-7,Speed);
-        Turn(-135,1);
-        arm.setTargetPosition(650);
-        Drive(12,Speed);
-        sleep(1000);
-        ArmExtender.setTargetPosition(1900);
-        arm.setTargetPosition(800);
-        Drive(6,Speed);
-        InTake.setPower(1);
-        sleep(2000);
-        arm.setTargetPosition(900);
-        Drive(-8,Speed);
-        Turn(-0,1);
-        arm.setTargetPosition(0);
-        ArmExtender.setTargetPosition(0);
-        sleep(2000);
+      Strafe_Right(1500,0.5);
+      //sleep(3000);
+      Turn(0,1);
 
       //////////////////////////////////////////////////////////////////////////////////
     }
@@ -373,6 +324,24 @@ public class RED_NEAR_BASKET_TWO extends LinearOpMode {
 
 
   }
+    private void Strafe_Right(int Time, double Power) {
+
+        FrontRight.setPower(-Power);
+        FrontLeft.setPower(Power);
+        RearRight.setPower(Power);
+        RearLeft.setPower(-Power);
+
+        sleep(Time);
+
+        FrontRight.setPower(0);
+        FrontLeft.setPower(0);
+        RearRight.setPower(0);
+        RearLeft.setPower(0);
+
+
+
+
+    }
 }
 
 

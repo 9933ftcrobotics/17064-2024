@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -23,7 +24,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import java.lang.Math;
 
 @TeleOp(name = "Official_Main_Drive", group = "")
-//@Disabled
+@Disabled
 public class Official_Main_Drive extends LinearOpMode {
     //private ElapsedTime runtime = new ElapsedTime ();
     private DcMotor ArmExtender;

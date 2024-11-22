@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 //import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -19,7 +20,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 @Autonomous(name = "Autonomous_Format_2024", group = "")
-//@Disabled
+@Disabled
 public class Autonomous_Format_2024 extends LinearOpMode {
 
   BNO055IMU imu;
