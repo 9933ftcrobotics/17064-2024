@@ -37,6 +37,7 @@ public class Official_Main_Drive_CC extends LinearOpMode {
     private boolean temp;
     private int count;
     boolean FC = true;
+    boolean Overidden = false;
     double SpeedReducer = 0;
 
     private PIDController controller;
@@ -132,11 +133,11 @@ public class Official_Main_Drive_CC extends LinearOpMode {
             LeftClimb.setPower(1);
             ArmExtender.setPower(0.8);
             while (opModeIsActive()) {
-                controller.setPID(p,i,d);
+                controller.setPID(p, i, d);
                 int armpos = arm.getCurrentPosition();
 
-                double pid = controller.calculate(armpos,target);
-                double ff = Math.cos(Math.toRadians(target / ticks_in_degree))*f;
+                double pid = controller.calculate(armpos, target);
+                double ff = Math.cos(Math.toRadians(target / ticks_in_degree)) * f;
 
                 arm.setPower(pid + ff);
                 telemetry.addData("ArmLift Current", arm.getCurrentPosition());
@@ -235,35 +236,83 @@ public class Official_Main_Drive_CC extends LinearOpMode {
                 FrontRight.setPower(RF * LTrigger);
                 RearLeft.setPower(LR * LTrigger);
                 RearRight.setPower(RR * LTrigger);
-                if (gamepad2.dpad_down) {
-                    ArmExtender.setTargetPosition(340);
-                    target = 0;
-                    InTake.setPower(-1);
-                } else if (gamepad2.dpad_right) {
-                    target = 750;
-                    ArmExtender.setTargetPosition(660);
-                } else if (gamepad2.left_bumper) {
-                    ArmExtender.setTargetPosition(1799);
-                } else if (gamepad2.dpad_up) {
-                    target = 650;
-                    ArmExtender.setTargetPosition(1900);
-                    if(ArmExtender.getCurrentPosition()>1700){
-                        target = 880;
+
+
+                if (!Overidden) {
+                    if(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.a || gamepad1.y){
+                        Overidden = true;
                     }
-                } else if (gamepad2.dpad_left) {
-                    target = 1000;
-                } else if (gamepad2.a) {target = 210;
-                    ArmExtender.setTargetPosition(1800);
-                    InTake.setPower(-1);
+
+
+                    else if (gamepad2.dpad_down) {
+                        ArmExtender.setTargetPosition(340);
+                        target = 0;
+                        InTake.setPower(-1);
+                    } else if (gamepad2.dpad_right) {
+                        target = 750;
+                        ArmExtender.setTargetPosition(660);
+                    /*} else if (gamepad2.left_bumper) {
+                    ArmExtender.setTargetPosition(1799);*/
+                } else if (gamepad2.dpad_up) {
+
+                    if (gamepad2.y) {
+                        target = 910;
+                    } else {
+                        target = 650;
+                        ArmExtender.setTargetPosition(1900);
+                        if (ArmExtender.getCurrentPosition() > 1700) {
+                            target = 880;
+                        }
+                    }
+                /*} else if (gamepad2.dpad_left) {
+                    target = 1000;*/
+            } else if (gamepad2.a) {
+                target = 210;
+                ArmExtender.setTargetPosition(1800);
+                InTake.setPower(-1);
 
 
             } else {
-                    ArmExtender.setTargetPosition(0);
-                    if (ArmExtender.getCurrentPosition()<300){
-                    target = 210;}
-
-                    InTake.setPower(0);
+                ArmExtender.setTargetPosition(0);
+                if (ArmExtender.getCurrentPosition() < 300) {
+                    target = 210;
                 }
+
+                InTake.setPower(0);
+            }
+
+        }
+                else{
+                    if(gamepad1.dpad_up){
+                        target=target+5;
+
+                    }
+                    else if(gamepad1.dpad_down){
+
+                        target=target-5;
+                    }
+                    if(gamepad1.y){
+                        ArmExtender.setTargetPosition(ArmExtender.getTargetPosition()+25);
+                    }
+                    else if(gamepad1.a){
+                        ArmExtender.setTargetPosition(ArmExtender.getTargetPosition()-25);
+                    }
+                }
+
+                if(gamepad1.start){
+                    ArmExtender.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    ArmExtender.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    Overidden = false;
+                }
+
+                if(gamepad1.back){
+                    Overidden = false;
+                }
+
+
+
                 if (gamepad1.right_bumper){
                     InTake.setPower(1); }
 
@@ -279,6 +328,7 @@ public class Official_Main_Drive_CC extends LinearOpMode {
 
                 telemetry.addData("Robot Angle", Robot_Angle);
                 telemetry.addData("ArmExtender", ArmExtender.getTargetPosition());
+
                 telemetry.update();
             }
         }
