@@ -258,7 +258,7 @@ public class Official_Main_Drive_CC extends LinearOpMode {
                     if (gamepad2.y) {
                         target = 910;
                     } else {
-                        target = 650;
+                        target = 750;
                         ArmExtender.setTargetPosition(1900);
                         if (ArmExtender.getCurrentPosition() > 1700) {
                             target = 880;
