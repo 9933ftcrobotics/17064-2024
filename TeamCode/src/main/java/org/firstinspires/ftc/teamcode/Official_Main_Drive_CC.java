@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.core.math.MathUtils;
+
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -41,8 +43,8 @@ public class Official_Main_Drive_CC extends LinearOpMode {
     double SpeedReducer = 0;
 
     private PIDController controller;
-    public static double p = 0.005, i = 0, d = 0.0008;
-    public static double f = 0.2;
+    public static double p = 0.01, i = 0.05, d = 0.00075;
+    public static double f = 0.5;
 
     public static int target = 0;
 
@@ -63,6 +65,7 @@ public class Official_Main_Drive_CC extends LinearOpMode {
     double Left_Stick_Y, Left_Stick_X;
     double Robot_Angle, Output_Angle;
     double LTrigger = 0;
+    double power;
     int Count = 0;
 
     @Override
@@ -131,7 +134,7 @@ public class Official_Main_Drive_CC extends LinearOpMode {
         if (opModeIsActive()) {
             RightClimb.setPower(1);
             LeftClimb.setPower(1);
-            ArmExtender.setPower(0.8);
+            ArmExtender.setPower(0.65);
             while (opModeIsActive()) {
                 controller.setPID(p, i, d);
                 int armpos = arm.getCurrentPosition();
@@ -139,7 +142,9 @@ public class Official_Main_Drive_CC extends LinearOpMode {
                 double pid = controller.calculate(armpos, target);
                 double ff = Math.cos(Math.toRadians(target / ticks_in_degree)) * f;
 
-                arm.setPower(pid + ff);
+                power = pid + ff;
+                power = MathUtils.clamp(power,-0.4,1);
+                arm.setPower(power);
                 telemetry.addData("ArmLift Current", arm.getCurrentPosition());
                 telemetry.addData("ArmLift Target", target);
                 telemetry.addData("ArmExtender", ArmExtender.getCurrentPosition());
@@ -245,37 +250,31 @@ public class Official_Main_Drive_CC extends LinearOpMode {
 
 
                     else if (gamepad2.dpad_down) {
-                        ArmExtender.setTargetPosition(340);
-                        target = 0;
+                        ArmExtender.setTargetPosition(ArmConstants.outGround);
+                        target = ArmConstants.armGround;
                         InTake.setPower(-1);
                     } else if (gamepad2.dpad_right) {
-                        target = 750;
-                        ArmExtender.setTargetPosition(660);
-                    /*} else if (gamepad2.left_bumper) {
-                    ArmExtender.setTargetPosition(1799);*/
+                        target = ArmConstants.armBasket;
+                        ArmExtender.setTargetPosition(ArmConstants.outLowBasket);
                 } else if (gamepad2.dpad_up) {
 
                     if (gamepad2.y) {
-                        target = 910;
+                        target = ArmConstants.armAboveHighBasket;
                     } else {
-                        target = 750;
-                        ArmExtender.setTargetPosition(1900);
-                        if (ArmExtender.getCurrentPosition() > 1700) {
-                            target = 880;
-                        }
+                        target = ArmConstants.armHighBasket;
+                        ArmExtender.setTargetPosition(ArmConstants.outHighBasket);
+
                     }
-                /*} else if (gamepad2.dpad_left) {
-                    target = 1000;*/
             } else if (gamepad2.a) {
-                target = 210;
-                ArmExtender.setTargetPosition(1800);
+                target = ArmConstants.armRest;
+                ArmExtender.setTargetPosition(ArmConstants.outSub);
                 InTake.setPower(-1);
 
 
             } else {
-                ArmExtender.setTargetPosition(0);
-                if (ArmExtender.getCurrentPosition() < 300) {
-                    target = 210;
+                ArmExtender.setTargetPosition(ArmConstants.outRest);
+                if (ArmExtender.getCurrentPosition() < ArmConstants.outInEnough) {
+                    target = ArmConstants.armRest;
                 }
 
                 InTake.setPower(0);

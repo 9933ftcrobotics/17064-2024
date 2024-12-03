@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.core.math.MathUtils;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
@@ -17,7 +19,7 @@ public class ArmTuner_CC extends LinearOpMode {
     private PIDController controller;
     public static double p = 0, i = 0, d = 0;
     public static double f = 0;
-
+double power;
     public static int target = 0;
 
     private final double ticks_in_degree = 2786.2 / 360.0;
@@ -60,8 +62,9 @@ public class ArmTuner_CC extends LinearOpMode {
 
                 double pid = controller.calculate(armpos,target);
                 double ff = Math.cos(Math.toRadians(target / ticks_in_degree))*f;
-
-                arm.setPower(pid + ff);
+                power = pid + ff;
+                power = MathUtils.clamp(power,-0.4,1);
+                arm.setPower(power);
 
 
                 telemetry.addData("ArmLift", arm.getCurrentPosition());
