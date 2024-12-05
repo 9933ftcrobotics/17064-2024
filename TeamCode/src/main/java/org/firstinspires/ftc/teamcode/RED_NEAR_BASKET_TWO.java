@@ -119,17 +119,16 @@ public class RED_NEAR_BASKET_TWO extends LinearOpMode {
         Drive(6,Speed);
         ArmExtender.setTargetPosition(1900);
         Drive(6,Speed);
-        arm.setTargetPosition(800);
-        sleep(1000);
+        arm.setTargetPosition(820);
+        sleep(1500);
         Turn(-135,1);
-        Drive(7,Speed);
+        Drive(6,Speed);
         InTake.setPower(1);
         sleep(2000);
         arm.setTargetPosition(890);
-        sleep(1000);
+        sleep(1500);
         InTake.setPower(0);
-        Drive(-6,Speed);
-        InTake.setPower(0);
+        Drive(-6,0.5);
         ////////////////////////////////////
         arm.setPower(0.2); //new
         arm.setTargetPosition(650);
@@ -157,14 +156,15 @@ public class RED_NEAR_BASKET_TWO extends LinearOpMode {
         arm.setTargetPosition(800);
         Drive(5,Speed);
         InTake.setPower(1);
-        sleep(2000);
+        sleep(1750);
         arm.setTargetPosition(900);
         Drive(-8,.25);
-        sleep(1000);
-        Turn(-0,1);
+        InTake.setPower(0);
         arm.setTargetPosition(0);
         ArmExtender.setTargetPosition(0);
-        sleep(2000);
+        sleep(1000);
+        Turn(0,0.5);
+        sleep(1750);
 
       //////////////////////////////////////////////////////////////////////////////////
     }

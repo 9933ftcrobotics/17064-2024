@@ -316,17 +316,19 @@ public class Official_Main_Drive_CC extends LinearOpMode {
                     InTake.setPower(1); }
 
                 if (gamepad1.right_stick_button){
-                    RightClimb.setTargetPosition(-2200);
-                    LeftClimb.setTargetPosition(-2200);
+                    RightClimb.setTargetPosition(ArmConstants.rightarmUp);
+                    LeftClimb.setTargetPosition(ArmConstants.leftarmUp);
                 }
                 else {
 
-                    RightClimb.setTargetPosition(0);
-                    LeftClimb.setTargetPosition(0);
+                    RightClimb.setTargetPosition(ArmConstants.rightarmRest);
+                    LeftClimb.setTargetPosition(ArmConstants.leftarmRest);
                 }
 
                 telemetry.addData("Robot Angle", Robot_Angle);
                 telemetry.addData("ArmExtender", ArmExtender.getTargetPosition());
+                telemetry.addData("LeftClimb", LeftClimb.getTargetPosition());
+                telemetry.addData("RightClimb", RightClimb.getTargetPosition());
 
                 telemetry.update();
             }
