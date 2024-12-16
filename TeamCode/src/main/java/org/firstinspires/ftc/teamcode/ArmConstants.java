@@ -21,9 +21,9 @@ public class ArmConstants {
     public static int outRest = 0;
 
     public static int leftarmRest = 0;
-    public static int leftarmUp = 3000;
+    public static int leftarmUp = 6000;
     public static int rightarmRest = 0;
-    public static int rightarmUp = 3000;
+    public static int rightarmUp = 6000;
 
 
 

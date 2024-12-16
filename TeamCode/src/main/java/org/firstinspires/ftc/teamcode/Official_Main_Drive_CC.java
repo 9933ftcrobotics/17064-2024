@@ -315,7 +315,7 @@ public class Official_Main_Drive_CC extends LinearOpMode {
                 if (gamepad1.right_bumper){
                     InTake.setPower(1); }
 
-                if (gamepad1.right_stick_button){
+                if (gamepad1.left_bumper){
                     RightClimb.setTargetPosition(ArmConstants.rightarmUp);
                     LeftClimb.setTargetPosition(ArmConstants.leftarmUp);
                 }

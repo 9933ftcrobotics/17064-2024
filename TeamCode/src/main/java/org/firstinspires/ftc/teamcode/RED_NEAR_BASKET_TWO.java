@@ -110,60 +110,80 @@ public class RED_NEAR_BASKET_TWO extends LinearOpMode {
       //////////////////////////////////////////////////////////////////////////////////
       //        Create list of Commands for the Auto here
       //////////////////////////////////////////////////////////////////////////////////
-      Speed = 0.35;
+      Speed = 0.4;
 
+      //Pre load score
       //Drive(27.5,Speed);
         Drive(7,Speed);
         Turn(-90,1);
-        arm.setTargetPosition(650);
+        arm.setTargetPosition(820);
         Drive(6,Speed);
         ArmExtender.setTargetPosition(1900);
         Drive(6,Speed);
-        arm.setTargetPosition(820);
-        sleep(1500);
+        //arm.setTargetPosition(820);
+        //sleep(1500);
         Turn(-135,1);
-        Drive(6,Speed);
+        Drive(5,Speed);
         InTake.setPower(1);
-        sleep(2000);
+        sleep(1000);
+
+        //The robot backs away from the basket
         arm.setTargetPosition(890);
-        sleep(1500);
+        sleep(1000);
         InTake.setPower(0);
-        Drive(-6,0.5);
+        Drive(-7,0.5);
+        sleep(1000);
         ////////////////////////////////////
-        arm.setPower(0.2); //new
-        arm.setTargetPosition(650);
+
+        //Failing to pick up second piece
+        //arm.setPower(0.2); //new
+        //arm.setTargetPosition(650);
         ArmExtender.setTargetPosition(0);
+        sleep(1000);
         arm.setTargetPosition(450);
-        sleep(1500);
-        Drive(-11,Speed);
-        Turn(-45,1);
-        Drive(4,Speed);
-        arm.setTargetPosition(0);
+        sleep(1000);
+        Drive(-7.5,Speed);
+        Turn(-60,1);
+        arm.setTargetPosition(200);
+        Drive(12,Speed);
+        InTake.setPower(0);
+        ArmExtender.setTargetPosition(0);
+        Drive(-3,Speed);
         sleep(1000);
         InTake.setPower(-1);
+        arm.setPower(0.35);
+        arm.setTargetPosition(0);
+        ArmExtender.setPower(0.5);
         ArmExtender.setTargetPosition(740);
-        sleep(1500);
-        Drive(6,Speed);
-        InTake.setPower(0);
+        sleep(1000);
+        arm.setPower(1);
+        ArmExtender.setPower(0.65);
         ArmExtender.setTargetPosition(0);
-        /////////////////////////////////////////////
-        Drive(-8,Speed);
+        InTake.setPower(0);
+        sleep(1000);
+        Drive(-2, Speed);
+        ///////////////////////////////////////////
         Turn(-135,1);
         arm.setTargetPosition(650);
         Drive(11,Speed);
         sleep(1000);
         ArmExtender.setTargetPosition(1900);
         arm.setTargetPosition(800);
+        sleep(1000);
         Drive(5,Speed);
+        sleep(500);
         InTake.setPower(1);
         sleep(1750);
         arm.setTargetPosition(900);
         Drive(-8,.25);
+        sleep(1000);
         InTake.setPower(0);
-        arm.setTargetPosition(0);
         ArmExtender.setTargetPosition(0);
         sleep(1000);
+        arm.setTargetPosition(400);
+        sleep(250);
         Turn(0,0.5);
+        arm.setTargetPosition(150);
         sleep(1750);
 
       //////////////////////////////////////////////////////////////////////////////////
